@@ -11,10 +11,11 @@ header {
     color: #00bcd4;
 }
 
-.logo {
+.logo a{
     font-size: 1.8em;
     font-weight: bold;
     color: #00bcd4;
+    text-decoration: none;
 }
 
 nav ul {
