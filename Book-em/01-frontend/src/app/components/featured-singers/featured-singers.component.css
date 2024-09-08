@@ -1,0 +1,37 @@
+/* Featured Singers Styles */
+.featured-singers {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.slideshow-container {
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+}
+
+.mySlides {
+    position: relative;
+    display: none;
+}
+
+
+.mySlides img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.text {
+    position: relative;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content;
+    text-align: center;
+    color: #f2f2f2;
+    font-size: 1.5em;
+    padding: 10px;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    border-radius: 5px;
+}

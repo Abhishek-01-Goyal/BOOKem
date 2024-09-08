@@ -1,0 +1,13 @@
+/* Testimonials Section Styles */
+.testimonials {
+    padding: 50px 20px;
+    background-color: #00bcd4;
+    color: #fff;
+    text-align: center;
+}
+
+.testimonial {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.2em;
+}
