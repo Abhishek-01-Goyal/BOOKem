@@ -1,0 +1,333 @@
+/* Header Styles */
+header {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #1e1e1e;
+    color: #00bcd4;
+}
+
+.logo a{
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #00bcd4;
+    text-decoration: none;
+
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li a {
+    color: #00bcd4;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav ul li a:hover {
+    background-color: #00acc1;
+    color: #121212;
+    border-radius: 5px;
+}
+
+/* Dropdown Button */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    color: #00bcd4;
+
+}
+
+
+
+.dropdown:hover {
+    background-color: #00acc1;
+    color: #121212;
+    border-radius: 5px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1e1e1e;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #00acc1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #00acc1;
+}
+
+
+.search-bar input {
+    padding: 5px;
+    background-color: #2c2c2c;
+    color: #fff;
+    border: 1px solid #00bcd4;
+    border-radius: 5px;
+}
+
+/* Hero Section Styles */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px #000;
+}
+
+.hero p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px #000;
+}
+
+/* Slideshow Container */
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden; /* Ensure slides don't overflow the container */
+    height: 500px; /* Fixed height for consistency */
+  }
+  
+  /* Slides */
+  .mySlides {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    left: 100%; /* Start off the screen to the right */
+    transition: all 1s ease-in-out; /* Smooth transition for slide movements */
+    display: flex; /* Align content properly */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  /* Active slide */
+  .mySlides.active {
+    left: 0; /* Slide moves into view */
+    opacity: 1; /* Fade in */
+  }
+  
+  /* Previous slide transitioning out */
+  .mySlides.previous {
+    left: -100%; /* Slide out to the left */
+    opacity: 0; /* Fade out */
+  }
+  
+  /* Button Styling */
+  .browse-singers-button {
+    background-color: #00bcd4;
+    color: #121212;
+    font-weight: 1.2em;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+    z-index: 1; /* Ensure the button is above the slides */
+  }
+  
+  .browse-singers-button:hover {
+    background-color: #00acc1;
+  }
+  
+  /* Dots */
+  .dots-container {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .dot {
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.6s ease;
+  }
+  
+  .active-dot {
+    background-color: #717171;
+  }
+  
+/* Genre section style */
+.container {
+    padding: 20px;
+}
+
+.genre-section {
+    background-color: #000000;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+    position: relative;
+}
+
+.genre-section h2 {
+    margin-top: 0;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    scroll-behavior: smooth;
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    background-color: #121212;
+    border-radius: 5px;
+    padding: 10px;
+    width: 250px;
+    text-align: center;
+}
+
+.carousel-item img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.bio {
+    margin: 10px 0;
+}
+
+.view-profile-button,
+.view-more-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    color: #121212;
+    background-color: #00bcd4;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.view-profile-button {
+    margin-top: 10px;
+}
+
+.view-more-button {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.view-more-button:hover,
+.view-profile-button:hover {
+    background-color: #00acc1;
+}
+
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #00bcd4;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 1;
+}
+
+.carousel-nav.prev {
+    left: 10px;
+}
+
+.carousel-nav.next {
+    right: 10px;
+}
+
+
+
+/* Footer Styles */
+footer {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+    padding: 20px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.contact-info p {
+    margin: 5px 0;
+}
+
+.newsletter form {
+    display: flex;
+    gap: 10px;
+}
+
+.newsletter input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #00bcd4;
+    background-color: #2c2c2c;
+    color: #fff;
+}
+
+.newsletter button {
+    padding: 10px;
+    background-color: #00bcd4;
+    color: #121212;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.newsletter button:hover {
+    background-color: #00acc1;
+}
