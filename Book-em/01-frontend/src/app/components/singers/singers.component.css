@@ -101,6 +101,13 @@
     padding: 20px;
 }
 
+.genre-heading {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center;     /* Centers vertically (if necessary) */
+    margin: 20px 0;          /* Optional: Adds some space above and below */
+  }
+
 .genre-section {
     background-color: #000000;
     border-radius: 5px;

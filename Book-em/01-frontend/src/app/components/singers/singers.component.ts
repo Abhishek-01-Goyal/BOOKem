@@ -1,6 +1,6 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { SingersService } from '../../services/singers.service';
-import { Singer, Genre } from '../../models/genre';
+import { Singer } from '../../models/genre';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -9,118 +9,151 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./singers.component.css']
 })
 export class SingersComponent implements OnInit, AfterViewInit, OnDestroy {
-  public singers: Singer[] = [];
-  public genres: Genre[] = [];
-  private subscriptions: Subscription = new Subscription();
-  public selectedGenre: string = '';
+  public rappersSingers: Singer[] = [];
+  public bollywoodSingers: Singer[] = [];
+  public punjabiSingers: Singer[] = [];
+  public sufiSingers: Singer[] = [];
 
-  constructor(private singersService: SingersService, private renderer: Renderer2) {}
+  private subscriptions: Subscription = new Subscription();
+
+  constructor(private singersService: SingersService) {}
 
   ngOnInit(): void {
-    this.loadGenres();
-  }
-
-  ngAfterViewInit(): void {
-    // Initialize general slideshow if needed
-    this.initializeSlideshow();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe(); // Clean up subscriptions
-  }
-
-  loadGenres(): void {
-    this.subscriptions.add(
-      this.singersService.getGenres().subscribe(
-        (genres: Genre[]) => {
-          this.genres = genres;
-          this.initializeCarousels(); // Initialize carousels after genres are loaded
-        },
-        (error: any) => {
-          console.error('Error loading genres', error);
-        }
-      )
-    );
+    this.loadSingersByGenre('rappers');
+    this.loadSingersByGenre('bollywood');
+    this.loadSingersByGenre('punjabi');
+    this.loadSingersByGenre('sufi');
   }
 
   loadSingersByGenre(genre: string): void {
-    this.subscriptions.add(
-      this.singersService.getSingersByGenre(genre).subscribe(
-        (singers: Singer[]) => {
-          this.singers = singers;
-        },
-        (error: any) => {
-          console.error('Error loading singers by genre', error);
-        }
-      )
-    );
+    const sub = this.singersService.findSingersByGenre(genre).subscribe((singers: Singer[]) => {
+      console.log(`Loaded ${genre} singers:`, singers); // Debugging line
+      switch (genre) {
+        case 'rappers':
+          this.rappersSingers = singers;
+          break;
+        case 'bollywood':
+          this.bollywoodSingers = singers;
+          break;
+        case 'punjabi':
+          this.punjabiSingers = singers;
+          break;
+        case 'sufi':
+          this.sufiSingers = singers;
+          break;
+      }
+    });
+    this.subscriptions.add(sub); // Add subscription to cleanup list
   }
 
-  onGenreChange(newGenre: string): void {
-    this.selectedGenre = newGenre;
-    this.loadSingersByGenre(newGenre);
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.initializeCarousels();
+      this.initializeSlideshow(); // General slideshow if applicable
+    }, 500); // Delay to ensure data and DOM are ready
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscriptions) {
+      this.subscriptions.unsubscribe();
+    }
   }
 
   initializeCarousels(): void {
     setTimeout(() => {
-      this.genres.forEach(genre => {
-        this.initializeCarousel(genre.genre.toLowerCase());
-      });
-    }, 0);
+      this.initializeCarousel('rappers');
+      this.initializeCarousel('bollywood');
+      this.initializeCarousel('punjabi');
+      this.initializeCarousel('sufi');
+    }, 0); // Slight delay to ensure DOM is ready
   }
 
   initializeCarousel(genre: string): void {
-    const carouselContainer = document.querySelector(`.genre-section.${genre} .carousel`) as HTMLElement;
-    const prevButton = document.querySelector(`.genre-section.${genre} .carousel-nav.prev`) as HTMLElement;
-    const nextButton = document.querySelector(`.genre-section.${genre} .carousel-nav.next`) as HTMLElement;
-
-    if (!carouselContainer || !prevButton || !nextButton) return;
-
+    const carouselContainer = document.querySelector(`#${genre} .carousel`) as HTMLElement;
+    const prevButton = document.querySelector(`#${genre} .carousel-nav.prev`) as HTMLElement;
+    const nextButton = document.querySelector(`#${genre} .carousel-nav.next`) as HTMLElement;
+  
+    console.log(`Initializing carousel for ${genre}`);
+    console.log('Carousel Container:', carouselContainer);
+    console.log('Previous Button:', prevButton);
+    console.log('Next Button:', nextButton);
+  
+    if (!carouselContainer || !prevButton || !nextButton) {
+      console.error(`Failed to initialize carousel for ${genre}. Missing elements.`);
+      return;
+    }
+  
     let slideIndex = 0;
     const slides = carouselContainer.getElementsByClassName('carousel-item') as HTMLCollectionOf<HTMLElement>;
-
-    function showSlides() {
+  
+    console.log('Slides:', slides);
+  
+    if (slides.length === 0) {
+      console.error(`No slides found for ${genre}.`);
+      return;
+    }
+  
+    function showSlides(index: number): void {
       for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = 'none';
       }
-      slideIndex++;
-      if (slideIndex > slides.length) { slideIndex = 1; }
-      slides[slideIndex - 1].style.display = 'block';
+      slideIndex = (index + slides.length) % slides.length;
+      slides[slideIndex].style.display = 'block';
     }
+  
+    prevButton.addEventListener('click', () => {
+      slideIndex--;
+      showSlides(slideIndex);
+    });
+  
+    nextButton.addEventListener('click', () => {
+      slideIndex++;
+      showSlides(slideIndex);
+    });
+  
+    showSlides(slideIndex);
+    
 
     prevButton.addEventListener('click', () => {
-      slideIndex -= 2;
-      if (slideIndex < 0) { slideIndex = slides.length - 2; }
-      showSlides();
+      slideIndex--;
+      showSlides(slideIndex);
     });
 
-    nextButton.addEventListener('click', showSlides);
+    nextButton.addEventListener('click', () => {
+      slideIndex++;
+      showSlides(slideIndex);
+    });
 
-    showSlides(); // Initialize first slide
-    setInterval(showSlides, 3000); // Change slide every 3 seconds
+    showSlides(slideIndex); // Initialize first slide
   }
 
-  initializeSlideshow() {
+  initializeSlideshow(): void {
     let slideIndex = 0;
     const slides = document.getElementsByClassName('mySlides') as HTMLCollectionOf<HTMLElement>;
 
-    function showSlides() {
+    console.log('Slideshow Slides:', slides);
+
+    function showSlides(): void {
       for (let i = 0; i < slides.length; i++) {
         slides[i].classList.remove('active', 'previous');
       }
 
       const previousSlideIndex = slideIndex;
-      slides[previousSlideIndex].classList.add('previous');
+      if (slides[previousSlideIndex]) {
+        slides[previousSlideIndex].classList.add('previous');
+      }
 
       slideIndex++;
       if (slideIndex >= slides.length) {
         slideIndex = 0;
       }
 
-      slides[slideIndex].classList.add('active');
-      setTimeout(showSlides, 3000);
+      if (slides[slideIndex]) {
+        slides[slideIndex].classList.add('active');
+      }
+      setTimeout(showSlides, 3000); // Loop every 3 seconds
     }
 
-    showSlides();
+    showSlides(); // Start slideshow
   }
 }
