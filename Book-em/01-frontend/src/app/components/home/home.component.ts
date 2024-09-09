@@ -16,21 +16,39 @@ export class HomeComponent implements AfterViewInit {
     let slideIndex = 0;
     const slides = document.getElementsByClassName('mySlides') as HTMLCollectionOf<HTMLElement>;
     const dotsContainer = document.querySelector('.dots-container') as HTMLElement;
-
+  
+    // Ensure the slides and dotsContainer exist before proceeding
+    if (!slides || slides.length === 0 || !dotsContainer) {
+      console.error('Slides or dots container not found');
+      return;
+    }
+  
     function showSlides() {
       let i;
       for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = 'none';  
-        (dotsContainer.children[i] as HTMLElement).classList.remove('active');
+        slides[i].style.display = 'none';
+  
+        // Ensure dot exists before accessing its classList
+        if (dotsContainer.children[i]) {
+          (dotsContainer.children[i] as HTMLElement).classList.remove('active');
+        }
       }
       slideIndex++;
-      if (slideIndex > slides.length) { slideIndex = 1; }    
-      slides[slideIndex - 1].style.display = 'block';  
-      (dotsContainer.children[slideIndex - 1] as HTMLElement).classList.add('active');
+      if (slideIndex > slides.length) {
+        slideIndex = 1;
+      }
+  
+      slides[slideIndex - 1].style.display = 'block';
+  
+      // Ensure dot exists before setting it as active
+      if (dotsContainer.children[slideIndex - 1]) {
+        (dotsContainer.children[slideIndex - 1] as HTMLElement).classList.add('active');
+      }
+  
       setTimeout(showSlides, 3000); // Change slide every 3 seconds
     }
-
-    // Initialize dots
+  
+    // Initialize dots only if dotsContainer is present
     function createDots() {
       for (let i = 0; i < slides.length; i++) {
         const dot = document.createElement('span');
@@ -40,20 +58,30 @@ export class HomeComponent implements AfterViewInit {
         dotsContainer.appendChild(dot);
       }
     }
-
+  
     function showSlide(index: number) {
       for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = 'none';
-        (dotsContainer.children[i] as HTMLElement).classList.remove('active');
+  
+        // Ensure dot exists before modifying it
+        if (dotsContainer.children[i]) {
+          (dotsContainer.children[i] as HTMLElement).classList.remove('active');
+        }
       }
       slides[index].style.display = 'block';
-      (dotsContainer.children[index] as HTMLElement).classList.add('active');
+  
+      // Ensure dot exists before setting it as active
+      if (dotsContainer.children[index]) {
+        (dotsContainer.children[index] as HTMLElement).classList.add('active');
+      }
       slideIndex = index;
     }
-
+  
     createDots();
     showSlides();
   }
+  
+
 
   initializeCategories() {
     let currentCategoryIndex = 0;

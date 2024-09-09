@@ -24,7 +24,7 @@ public class SingerController {
 
     @GetMapping("/genre/{genre}")
     public ResponseEntity<List<Singers>> getSingersByGenre(@PathVariable String genre) {
-        List<Singers> singers = singerService.findByGenre(genre);
+        List<Singers> singers = singerService.findSingersByGenre(genre);
         return ResponseEntity.ok(singers);
     }
 
@@ -32,6 +32,12 @@ public class SingerController {
     public ResponseEntity<List<Singers>> searchSingersByName(@RequestParam String name) {
         List<Singers> singers = singerService.searchByName(name);
         return ResponseEntity.ok(singers);
+    }
+
+    @GetMapping("/genres") // Ensure this endpoint is correctly mapped
+    public ResponseEntity<List<String>> getAllGenres() {
+        List<String> genres = singerService.getAllGenres();
+        return ResponseEntity.ok(genres);
     }
 
     // Additional endpoints for singer operations

@@ -12,7 +12,7 @@ public class SingerService {
     @Autowired
     private SingersRepository singerRepository;
 
-    public List<Singers> findByGenre(String genre) {
+    public List<Singers> findSingersByGenre(String genre) {
         return singerRepository.findByGenre(genre);
     }
 
@@ -22,5 +22,9 @@ public class SingerService {
 
     public Singers saveSinger(Singers singer) {
         return singerRepository.save(singer);
+    }
+
+    public List<String> getAllGenres() {
+        return singerRepository.findDistinctGenres(); // Ensure this method is defined in the repository
     }
 }
