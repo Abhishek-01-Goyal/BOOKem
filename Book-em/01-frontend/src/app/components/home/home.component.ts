@@ -1,8 +1,7 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Singer } from '../../models/singer';
-import { Router } from '@angular/router';  // Import Router
-
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +9,19 @@ import { Router } from '@angular/router';  // Import Router
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements AfterViewInit, OnInit {
-  isLoggedIn: boolean = false;
-  singer!: Singer;
-
-  constructor(private authService: AuthService, private router: Router) {}
+  isLoggedIn$: Observable<boolean>;  // Observable for login state
+  singer!: any;
+  constructor(private authService: AuthService, private router: Router) {
+    this.isLoggedIn$ = this.authService.isLoggedIn$;  // Subscribe to login state changes
+  }
 
   ngOnInit(): void {
-    // Check if user is logged in via AuthService
-    this.isLoggedIn = this.authService.isAuthenticated();
+    // No need to check login state here as we are using observable
   }
 
   logout(): void {
-    this.authService.logout();
-    this.isLoggedIn = false;
+    this.authService.logout();  // Perform logout
+    this.router.navigate(['/landing-page']);  // Redirect to landing page
   }
 
   ngAfterViewInit() {
@@ -33,7 +32,7 @@ export class HomeComponent implements AfterViewInit, OnInit {
     this.initializeSlideshowForSufi();
     this.initializeSlideshowForPunjabi();
   }
-  
+
   // Featured Singers Slideshow
   initializeSlideshowForFeaturedSingers() {
     let slideIndex = 0;
@@ -193,7 +192,6 @@ export class HomeComponent implements AfterViewInit, OnInit {
 
   // Navigate to the landing page
   goToLandingPage(): void {
-    this.router.navigate(['/landing-page']); // Assuming '/landing' is the route for the landing page
+    this.router.navigate(['/landing-page']); // Assuming '/landing-page' is the route for the landing page
   }
-
 }

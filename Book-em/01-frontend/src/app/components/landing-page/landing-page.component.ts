@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent {
-  isSignUp = true;
+  isSignUp = true;  // Track whether it's sign-up or sign-in form
   signupForm: FormGroup;
   otpForm: FormGroup;
   loginForm: FormGroup;
@@ -23,7 +23,13 @@ export class LandingPageComponent {
     password: ''
   };
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private renderer: Renderer2,
+    private el: ElementRef
+  ) {
     this.signupForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -43,19 +49,20 @@ export class LandingPageComponent {
     });
   }
 
+  // Function to handle form toggle (sign-up/sign-in)
   toggleForm() {
     this.isSignUp = !this.isSignUp;
     this.otpSent = false; // Reset OTP state when toggling forms
-  }
 
-  onSubmit() {
+    const container = this.el.nativeElement.querySelector('#container');
     if (this.isSignUp) {
-      this.signUp();
+      this.renderer.removeClass(container, 'right-panel-active');
     } else {
-      this.login();
+      this.renderer.addClass(container, 'right-panel-active');
     }
   }
 
+  // Handles sign-up form submission
   signUp() {
     if (this.signupForm.valid) {
       this.authService.signUp(this.signupForm.value).subscribe(
@@ -75,6 +82,7 @@ export class LandingPageComponent {
     }
   }
 
+  // OTP verification
   verifyOtp() {
     this.authService.verifyOtp(this.otpData).subscribe(
       (response: any) => {
@@ -87,6 +95,7 @@ export class LandingPageComponent {
     );
   }
 
+  // Handles login form submission
   login() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
@@ -101,6 +110,7 @@ export class LandingPageComponent {
     }
   }
 
+  // Function to send OTP for verification
   sendOtp() {
     if (this.otpData.email) {
       this.authService.sendOtp(this.otpData.email).subscribe(
@@ -114,10 +124,12 @@ export class LandingPageComponent {
     }
   }
 
+  // Function for forgot password (yet to implement logic)
   forgotPassword() {
     console.log('Forgot Password');
   }
 
+  // Social sign-up and login methods
   signUpWith(platform: string) {
     window.location.href = `https://localhost:8080/api/auth/${platform}/signup`;
   }

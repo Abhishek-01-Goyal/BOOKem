@@ -24,20 +24,26 @@
         <input type="text" placeholder="Search for singers...">
     </div>
   
-    <!-- Conditional rendering based on user's login state -->
-    <nav>
-      <ul>
+   <!-- Navigation with conditional rendering -->
+<nav>
+    <ul>
+      <!-- Show Login/Signup link if not logged in -->
+      <li *ngIf="!(isLoggedIn$ | async)">
         <a routerLink="/landing-page">Login/Signup</a>
-        <li *ngIf="isLoggedIn" class="dropdown">Profile
-              <div class="dropdown-content">
-                  <a href="#">My Profile</a>
-                  <a href="#">My Bookings</a>
-                  <a href="#">Register as a Singer</a>
-                  <a href="#" (click)="logout()">Logout</a>
-              </div>
-          </li>
-      </ul>
-    </nav>
+      </li>
+  
+      <!-- Show Profile dropdown if logged in -->
+      <li *ngIf="isLoggedIn$ | async" class="dropdown profile-dropdown">
+        Profile
+        <div class="dropdown-content">
+          <a routerLink="/profile">My Profile</a>
+          <a routerLink="/my-bookings">My Bookings</a>
+          <a routerLink="/register-singer">Register as a Singer</a>
+          <a href="#" (click)="logout()">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
   </header>
   
 <!-- Hero Section -->
