@@ -1,11 +1,9 @@
-export interface Singer {
-    name: string;
-    profileImage: string;
-    bio: string;
-  }
-  
-  export interface Genre {
-    genre: string;
-    singers: Singer[];
-  }
-  
+export interface Genre {
+  id: number;
+  name: string;
+  profileImage: string;
+  bio?: string;
+  genre: string;
+  rating?: number;
+  pricePerHour?: number;
+}

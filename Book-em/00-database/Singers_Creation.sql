@@ -1,13 +1,13 @@
-CREATE TABLE singers (
-    singer_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    user_id BIGINT,  -- Foreign key to Users table
-    name VARCHAR(100),
+CREATE TABLE Singers (
+    singer_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    name VARCHAR(255) NOT NULL,
     bio TEXT,
-    genre VARCHAR(50),
-    rating DECIMAL(3, 2),
+    genre VARCHAR(255),
+    rating DECIMAL(3, 2) CHECK (rating >= 0 AND rating <= 5),
     price_per_hour DECIMAL(10, 2),
     profile_image VARCHAR(255),
-    location VARCHAR(100),
-    availability VARCHAR(255),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    availability BOOLEAN DEFAULT TRUE,
+    location VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );

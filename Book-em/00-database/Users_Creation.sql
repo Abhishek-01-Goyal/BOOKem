@@ -1,10 +1,10 @@
-CREATE TABLE users (
-    user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(100) UNIQUE,
-    email VARCHAR(100) UNIQUE,
-    password VARCHAR(255),
-    role VARCHAR(20),  -- 'USER' or 'SINGER' or 'ADMIN'
+CREATE TABLE Users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('client', 'singer', 'admin') NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    status VARCHAR(10)  -- 'ACTIVE', 'INACTIVE'
+    status ENUM('active', 'inactive') DEFAULT 'active'
 );

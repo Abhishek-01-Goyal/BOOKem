@@ -1,0 +1,80 @@
+<div class="container">
+  <form [formGroup]="bookingForm" (ngSubmit)="submitBooking()">
+    <!-- Singer Details Section -->
+    <div class="singer-info">
+      <div class="singer-details">
+        <div class="singer-image">
+          <img [src]="singer?.profile_image" alt="{{ singer?.name }}" />
+        </div>
+        <h1>{{ singer?.name }}</h1>
+        <p><strong>Genre:</strong> <span class="value">{{ singer?.genre }}</span></p>
+        <p><strong>Price per Hour:</strong> <span class="value">$ {{ singer?.pricePerHour }}</span></p>
+        <p><strong>Rating:</strong> <span class="value">{{ singer?.rating }} / 5</span></p>
+      </div>
+    </div>
+
+    <!-- Booking Form Section -->
+    <div class="booking-container">
+      <div class="left-side">
+        <h2>Booking Address</h2>
+        <!-- Address Fields -->
+        <div class="form-group">
+          <label for="addressLine1">Address Line 1: </label>
+          <input type="text" id="addressLine1" formControlName="addressLine1" />
+        </div>
+        <div class="form-group">
+          <label for="addressLine2">Address Line 2: </label>
+          <input type="text" id="addressLine2" formControlName="addressLine2" />
+        </div>
+        <div class="form-group">
+          <label for="addressLine3">Address Line 3: </label>
+          <input type="text" id="addressLine3" formControlName="addressLine3" />
+        </div>
+        <div class="form-group">
+          <label for="country">Country: </label>
+          <select id="country" formControlName="country" (change)="onCountryChange($event)">
+            <option value="">Select Country</option>
+            <option *ngFor="let country of countries" [value]="country.id">{{ country.name }}</option>
+          </select> 
+        </div>
+        <div class="form-group">
+          <label for="state">State: </label>
+          <select id="state" formControlName="state">
+            <option value="">Select State</option>
+            <option *ngFor="let state of states" [value]="state.id">{{ state.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="city">City: </label>
+          <input type="text" id="city" formControlName="city" />
+        </div>
+        <div class="form-group">
+          <label for="zipcode">Zip Code: </label>
+          <input type="text" id="zipcode" formControlName="zipcode" />
+        </div>
+      </div>
+
+      <div class="right-side">
+        <h2>Booking Details</h2>
+        <!-- Booking Details Fields -->
+        <div class="form-group">
+          <label for="bookingDate">Booking Date: </label>
+          <input type="date" id="bookingDate" formControlName="bookingDate" />
+        </div>
+        <div class="form-group">
+          <label for="bookingTime">Booking Time: </label>
+          <input type="time" id="bookingTime" formControlName="bookingTime" />
+        </div>
+        <div class="form-group">
+          <label for="bookingHours">Booking Hours: </label>
+          <input type="number" id="bookingHours" formControlName="bookingHours" min="1" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Section -->
+    <div class="submit-section">
+      <button type="submit" [disabled]="bookingForm.invalid">Submit Booking</button>
+    </div>
+  </form>
+</div>

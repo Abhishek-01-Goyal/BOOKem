@@ -1,0 +1,39 @@
+<div class="confirm-booking-container">
+    <h2>Confirm Booking Details</h2>
+
+    <!-- Displaying singer details -->
+    <div class="singer-details">
+        <img [src]="bookingDetails.singer.profileImage" alt="Singer Image">
+        <h3>{{ bookingDetails.singer.name }}</h3>
+        <p><strong>Genre:</strong> <span class="value">{{ bookingDetails.singer.genre }}</span></p>
+        <p><strong>Price per Hour:</strong> <span class="value">$ {{ bookingDetails.singer.pricePerHour }}</span></p>
+        <p><strong>Ratings:</strong> <span class="value">{{ bookingDetails.singer.rating }}</span></p>
+    </div>
+
+    <!-- Displaying booking address and time details -->
+    <div class="booking-details">
+        <div class="left-side">
+            <h3>Booking Address:</h3>
+            <p><strong>Address Line 1:</strong> {{ bookingDetails.addressLine1 }}</p>
+            <p><strong>Address Line 2:</strong> {{ bookingDetails.addressLine2 }}</p>
+            <p><strong>Address Line 3:</strong> {{ bookingDetails.addressLine3 }}</p>
+            <p><strong>City:</strong> {{ bookingDetails.city }}</p>
+            <p><strong>State:</strong> {{ selectedStateName }}</p>
+            <p><strong>Country:</strong> {{ selectedCountryName }}</p>
+            <p><strong>Zipcode:</strong> {{ bookingDetails.zipcode }}</p>
+        </div>
+
+        <div class="right-side">
+            <h3>Booking Schedule:</h3>
+            <p><strong>Date:</strong> {{ bookingDetails.bookingDate }}</p>
+            <p><strong>Time:</strong> {{ bookingDetails.bookingTime }}</p>
+            <p><strong>Hours:</strong> {{ bookingDetails.bookingHours }}</p>
+        </div>
+    </div>
+
+    <!-- Action buttons -->
+    <div class="action-buttons">
+        <button (click)="editBooking()" class="edit-booking">Edit Booking</button>
+        <button (click)="proceedToPayment()" class="pay-now">Proceed To Payment</button>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+.payment-page-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .payment-page-container h2 {
+    color: #00bcd4;
+    margin-bottom: 20px;
+  }
+  
+  .payment-page-container p {
+    margin: 10px 0;
+    font-size: 1.2rem;
+  }
+  
+  button.pay-now {
+    padding: 10px 20px;
+    background-color: #00bcd4;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  
+  button.pay-now:hover {
+    background-color: #00acc1;
+  }
+  

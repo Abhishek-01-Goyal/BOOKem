@@ -1,0 +1,127 @@
+.landing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #000000; /* Dark blue to black gradient */
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.header {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #00bcd4;
+  font-size: 2rem;
+}
+
+.form-container {
+  position: absolute;
+  right: 20px;
+  top: auto;
+  background: rgba(30, 30, 30, 0.9);
+  opacity: 0.75; /* Translucent dark background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 400px; /* Adjust width as needed */
+}
+
+.form {
+  display: flex;
+  flex-direction: row; /* Horizontal layout */
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+form input {
+  flex: 1 1 100%;
+  margin: 10px 4px;
+  padding: 10px;
+  border: 1px solid #444;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+}
+
+button {
+  padding: 10px;
+  background-color: #00bcd4; /* Dark blue button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+button:hover {
+  background-color: #00acc1; /* Darker blue on hover */
+}
+
+.social-login button {
+  display: block;
+  margin: 10px 0;
+  background-color: #444; /* Dark grey for social buttons */
+  color: #fff;
+}
+
+.social-login button:hover {
+  background-color: #333; /* Even darker grey on hover */
+}
+
+p {
+  margin: 10px 0;
+  color: #ddd; /* Light grey text for readability */
+}
+
+a {
+  color: #1e90ff; /* Bright blue links */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Existing styles */
+
+.social-signup button, .social-login button {
+  display: block;
+  margin: 10px 0;
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.social-signup button:hover, .social-login button:hover {
+  background-color: #333;
+}
+
+.social-signup button {
+  background-color: #db4437; /* Google Red */
+}
+
+.social-signup button:nth-child(2) {
+  background-color: #3b5998; /* Facebook Blue */
+}
+
+.social-signup button:nth-child(3) {
+  background-color: #e4405f; /* Instagram Pink */
+}
+
+
+.social-login button {
+  background-color: #db4437; /* Google Red */
+}
+
+.social-login button:nth-child(2) {
+  background-color: #3b5998; /* Facebook Blue */
+}
+
+.social-login button:nth-child(3) {
+  background-color: #e4405f; /* Instagram Pink */
+}

@@ -75,18 +75,18 @@
     box-sizing: border-box; /* Ensure padding is included in the width */
     border-radius: 5px;
 }
-.view-profile {
+.view-profile-button {
     background-color: #00bcd4;
     color: #121212;
     padding: 10px 20px;
     text-decoration: none;
-    border-radius: 1px;
+    border-radius: 5px;
     font-size: 1.2em;
     transition: background-color 0.3s, transform 0.3s;
 
 }
 
-.view-profile:hover {
+.view-profile-button:hover {
     background-color: #00acc1;
     transform: scale(1.05);
 }
@@ -108,10 +108,12 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    height: 300px;
 }
 
 .category-frame {
     width: 80%;
+    height: 100%;
     overflow: hidden;
     position: relative;
 }
@@ -129,7 +131,7 @@
     color: #121212;
     padding: 10px 20px;
     text-decoration: none;
-    border-radius: 1px;
+    border-radius: 5px;
     font-size: 1.2em;
     transition: background-color 0.3s, transform 0.3s;
 

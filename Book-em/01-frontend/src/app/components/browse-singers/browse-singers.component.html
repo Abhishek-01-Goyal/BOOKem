@@ -1,0 +1,103 @@
+<section class="hero">
+    <div class="slideshow-container">
+        <div class="mySlides active">
+            <h1>Book the Best Singers for Your Events</h1>
+            <p>Find and book top-rated singers for weddings, parties, corporate events, and more.</p>
+            <a [routerLink]="['/all-singers']" class="browse-singers-button">Browse Singers</a>
+        </div>
+        <div class="mySlides">
+            <h1>Discover Amazing Talent</h1>
+            <p>Browse through our list of talented singers for any occasion.</p>
+            <a [routerLink]="['/all-singers']" class="browse-singers-button">Browse Singers</a>
+        </div>
+        <div class="mySlides">
+            <h1>Book Your Favorite Singers</h1>
+            <p>Make your events unforgettable with live performances.</p>
+            <a [routerLink]="['/all-singers']" class="browse-singers-button">Browse Singers</a>
+        </div>
+        <div class="mySlides">
+            <h1>Choose According to Your Event</h1>
+            <p>Book the singer that best fits the occasion you are celebrating.</p>
+            <a [routerLink]="['/all-singers']" class="browse-singers-button">Browse Singers</a>
+        </div>
+    </div>
+
+    <!-- Updated dots container for four slides -->
+    <div class="dots-container">
+        <span class="dot active-dot" (click)="currentSlide(1)"></span>
+        <span class="dot" (click)="currentSlide(2)"></span>
+        <span class="dot" (click)="currentSlide(3)"></span>
+        <span class="dot" (click)="currentSlide(4)"></span>
+    </div>
+</section>
+
+
+<div class="genre-section-wrapper">
+    <div class="genre-heading">
+        <h2>Explore the Genre</h2>
+    </div>
+
+    <section class="genre-section" id="rap">
+        <h2>Rap</h2>
+        <button class="carousel-nav prev" id="rap-prev">&#10094;</button>
+        <div class="carousel-container">
+            <div class="carousel rap-carousel" id="rap-carousel">
+                <div *ngFor="let singer of rappersSingers" class="carousel-item">
+                    <img [src]="singer.profileImage" [alt]="singer.name" class="singer-photo">
+                    <p class="singer-name">{{ singer.name }}</p>
+                    <a [routerLink]="['/singer-profile', singer.singerId]" class="view-profile-button">View Profile</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-nav next" id="rap-next">&#10095;</button>
+        <a [routerLink]="['/singers', 'Rap']" class="view-more-button">View More</a>
+    </section>
+
+    <section class="genre-section" id="bollywood">
+        <h2>Bollywood</h2>
+        <button class="carousel-nav prev" id="bollywood-prev">&#10094;</button>
+        <div class="carousel-container">
+            <div class="carousel bollywood-carousel" id="bollywood-carousel">
+                <div *ngFor="let singer of bollywoodSingers" class="carousel-item">
+                    <img [src]="singer.profileImage" [alt]="singer.name" class="singer-photo">
+                    <p class="singer-name">{{ singer.name }}</p>
+                    <a [routerLink]="['/singer-profile', singer.singerId]" class="view-profile-button">View Profile</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-nav next" id="bollywood-next">&#10095;</button>
+        <a [routerLink]="['/singers', 'Bollywood']" class="view-more-button">View More</a>
+    </section>
+
+    <section class="genre-section" id="punjabi">
+        <h2>Punjabi</h2>
+        <button class="carousel-nav prev" id="punjabi-prev">&#10094;</button>
+        <div class="carousel-container">
+            <div class="carousel punjabi-carousel" id="punjabi-carousel">
+                <div *ngFor="let singer of punjabiSingers" class="carousel-item">
+                    <img [src]="singer.profileImage" [alt]="singer.name" class="singer-photo">
+                    <p class="singer-name">{{ singer.name }}</p>
+                    <a [routerLink]="['/singer-profile', singer.singerId]" class="view-profile-button">View Profile</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-nav next" id="punjabi-next">&#10095;</button>
+        <a [routerLink]="['/singers', 'Punjabi']" class="view-more-button">View More</a>
+    </section>
+
+    <section class="genre-section" id="sufi">
+        <h2>Sufi</h2>
+        <button class="carousel-nav prev" id="sufi-prev">&#10094;</button>
+        <div class="carousel-container">
+            <div class="carousel sufi-carousel" id="sufi-carousel">
+                <div *ngFor="let singer of sufiSingers" class="carousel-item">
+                    <img [src]="singer.profileImage" [alt]="singer.name" class="singer-photo">
+                    <p class="singer-name">{{ singer.name }}</p>
+                    <a [routerLink]="['/singer-profile', singer.singerId]" class="view-profile-button">View Profile</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-nav next" id="sufi-next">&#10095;</button>
+        <a [routerLink]="['/singers', 'Sufi']" class="view-more-button">View More</a>
+    </section>
+</div>

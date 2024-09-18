@@ -1,0 +1,13 @@
+<div class="singer-profile">
+    <img [src]="singer?.profile_image" alt="{{ singer?.name }}" />
+    <h1>{{ singer?.name }}</h1>
+    <p>Genre: <span class="value">{{ singer?.genre }}</span></p>
+    <p>Rating: <span class="value">{{ singer?.rating }}</span></p>
+    <p>Price per Hour: <span class="value">{{ singer?.pricePerHour | currency }}</span></p>
+    <p>Location: <span class="value">{{ singer?.location }}</span></p>
+    <p>Bio: <span class="value">{{ singer?.bio }}</span></p>
+  
+    <!-- Add a Book Now button -->
+    <button (click)="bookNow()">Book Now</button>
+  </div>
+  

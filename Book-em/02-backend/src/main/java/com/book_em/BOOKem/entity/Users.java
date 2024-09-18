@@ -1,6 +1,5 @@
 package com.book_em.BOOKem.entity;
 
-
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -22,14 +21,18 @@ public class Users {
 	@Column(nullable = false)
 	private String password;
 
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private String role;  // 'USER' or 'SINGER'
+	private UserRole role;
 
-	private String status;  // 'ACTIVE', 'INACTIVE'
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private UserStatus status;
 
-	@Column(updatable = false)
+	@Column(name = "created_at", updatable = false)
 	private LocalDateTime createdAt;
 
+	@Column(name = "updated_at")
 	private LocalDateTime updatedAt;
 
 	@PrePersist
@@ -44,8 +47,6 @@ public class Users {
 	}
 
 	// Getters and Setters
-
-
 	public Long getUserId() {
 		return userId;
 	}
@@ -78,19 +79,19 @@ public class Users {
 		this.password = password;
 	}
 
-	public String getRole() {
+	public UserRole getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
 
-	public String getStatus() {
+	public UserStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(UserStatus status) {
 		this.status = status;
 	}
 
@@ -108,5 +109,13 @@ public class Users {
 
 	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public enum UserRole {
+		CLIENT, SINGER, ADMIN
+	}
+
+	public enum UserStatus {
+		ACTIVE, INACTIVE
 	}
 }

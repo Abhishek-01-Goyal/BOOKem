@@ -1,0 +1,91 @@
+.genre-singers-page {
+    padding: 20px;
+    color: #fff;
+    background-color: #000;
+  }
+  
+  .singers-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    position: relative;
+    left: 50px;
+    bottom: 10px;
+  }
+  
+  .singer-card {
+    background: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    width: 250px;
+  }
+  
+  .singer-card img {
+    width: 100%;
+    border-radius: 5px;
+  }
+  
+  .singer-card h3 {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    color: #00bcd4;
+  }
+  
+  .singer-card p {
+    color: #ddd;
+  }
+  
+  .singer-card button {
+    background-color: #00bcd4;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+    bottom: 10px;
+  }
+  
+  .singer-card button:hover {
+    background-color: #00acc1;
+  }
+  
+  .pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .pagination-controls button {
+    padding: 10px;
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .pagination-controls button:disabled {
+    background-color: #555;
+  }
+  
+  .pagination-controls span {
+    color: #ddd;
+  }
+  .view-profile-button {
+    background-color: #00bcd4;
+    color: #121212;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.3s;
+
+}
+
+.view-profile-button:hover {
+    background-color: #00acc1;
+    transform: scale(1.05);
+}

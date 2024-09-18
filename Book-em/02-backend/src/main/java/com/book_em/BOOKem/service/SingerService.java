@@ -1,30 +1,28 @@
 package com.book_em.BOOKem.service;
 
-import com.book_em.BOOKem.dao.SingersRepository;
-import com.book_em.BOOKem.entity.Singers;
+import com.book_em.BOOKem.entity.Singer;
+import com.book_em.BOOKem.dao.SingerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SingerService {
-
     @Autowired
-    private SingersRepository singerRepository;
+    private SingerRepository singerRepository;
 
-    public List<Singers> findSingersByGenre(String genre) {
+    public List<Singer> getAllSingers() {
+        return singerRepository.findAll();
+    }
+
+    public List<Singer> findSingersByGenre(String genre) {
         return singerRepository.findByGenre(genre);
     }
 
-    public List<Singers> searchByName(String name) {
-        return singerRepository.findByNameContaining(name);
-    }
-
-    public Singers saveSinger(Singers singer) {
-        return singerRepository.save(singer);
-    }
-
-    public List<String> getAllGenres() {
-        return singerRepository.findDistinctGenres(); // Ensure this method is defined in the repository
+    public Singer getSingerById(Integer id) {
+        Optional<Singer> singer = singerRepository.findById(id);
+        return singer.orElse(null);
     }
 }

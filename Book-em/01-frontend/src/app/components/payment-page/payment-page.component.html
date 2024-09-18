@@ -1,0 +1,33 @@
+<div class="payment-page-container">
+  <h2>Payment Details</h2>
+
+  <!-- Display total payable amount -->
+  <p><strong>Total Payable Amount: </strong> ${{ totalPayableAmount }}</p>
+
+  <!-- Breakdown of the total payable amount -->
+  <div *ngIf="breakdown">
+    <h3>Breakdown</h3>
+    <ul>
+      <li><strong>Base Price: </strong> ${{ breakdown?.basePrice }}</li>
+      <li><strong>Additional Charges: </strong> ${{ breakdown?.additionalCharges }}</li>
+      <li><strong>Discounts: </strong> ${{ breakdown?.discounts }}</li>
+      <li><strong>Total Amount: </strong> ${{ totalPayableAmount }}</li>
+    </ul>
+  </div>
+
+  <!-- Display booking amount (50% of price per hour) -->
+  <p><strong>Booking Amount (50% of Price per Hour): </strong> ${{ bookingAmount }}</p>
+
+  <!-- Breakdown of the booking amount -->
+  <div *ngIf="bookingBreakdown">
+    <h3>Booking Amount Breakdown</h3>
+    <ul>
+      <li><strong>Price per Hour: </strong> ${{ bookingBreakdown?.pricePerHour }}</li>
+      <li><strong>Discount Applied: </strong> ${{ bookingBreakdown?.discount }}</li>
+      <li><strong>Booking Amount (50%): </strong> ${{ bookingAmount }}</li>
+    </ul>
+  </div>
+
+  <!-- Button to proceed with the payment -->
+  <button (click)="pay()" class="pay-now">Proceed to Payment</button>
+</div>

@@ -1,9 +1,52 @@
-
+<!-- Header Section -->
+<header>
+    <div class="logo">
+        <a href="#">BOOK 'em</a>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li class="dropdown">Singers
+                <div class="dropdown-content">
+                    <a href="#">Rapper</a>
+                    <a href="#">Bollywood</a>
+                    <a href="#">Sufi</a>
+                    <a href="#">Punjabi</a>
+                </div>
+            </li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+  
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" placeholder="Search for singers...">
+    </div>
+  
+    <!-- Conditional rendering based on user's login state -->
+    <nav>
+      <ul>
+        <a routerLink="/landing-page">Login/Signup</a>
+        <li *ngIf="isLoggedIn" class="dropdown">Profile
+              <div class="dropdown-content">
+                  <a href="#">My Profile</a>
+                  <a href="#">My Bookings</a>
+                  <a href="#">Register as a Singer</a>
+                  <a href="#" (click)="logout()">Logout</a>
+              </div>
+          </li>
+      </ul>
+    </nav>
+  </header>
+  
 <!-- Hero Section -->
 <section class="hero">
-    <h1>Book the Best Singers for Your Events</h1>
-    <p>Find and book top-rated singers for weddings, parties, corporate events, and more.</p>
-    <a routerLink="/singers" class="browse-singers-button">Browse Singers</a>
+    <div class="css-selector">
+        <h1>Book the Best Singers for Your Events</h1>
+        <p>Find and book top-rated singers for weddings, parties, corporate events, and more.</p>
+        <a routerLink="/browse-singers" class="browse-singers-button">Browse Singers</a>
+    </div>
 </section>
 
 
@@ -14,25 +57,25 @@
         <div class="mySlides fade">
             <img src="assets/singer1.jpg" alt="Singer 1" class="slide-image">
             <div class="text">MC Stan<br>Rapper</div>
-            <a href="#" class="view-profile">View Profile</a>
+            <a [routerLink]="['/singer-profile', singer?.singerId]" class="view-profile-button">View Profile</a>
 
         </div>
         <div class="mySlides fade">
             <img src="assets/singer2.jpg" alt="Singer 2" class="slide-image">
             <div class="text">Sunidhi Chauhan<br>Bollywood Singer</div>
-            <a href="#" class="view-profile">View Profile</a>
+            <a [routerLink]="['/singer-profile', singer?.singerId]" class="view-profile-button">View Profile</a>
 
         </div>
         <div class="mySlides fade">
             <img src="assets/singer3.jpg" alt="Singer 3" class="slide-image">
             <div class="text">Karan Aujla<br>Punjabi Singer</div>
-            <a href="#" class="view-profile">View Profile</a>
+            <a [routerLink]="['/singer-profile', singer?.singerId]" class="view-profile-button">View Profile</a>
 
         </div>
         <div class="mySlides fade">
             <img src="assets/singer3.jpg" alt="Singer 3" class="slide-image">
             <div class="text">Bismil<br>Sufi Singer</div>
-            <a href="#" class="view-profile">View Profile</a>
+          <a [routerLink]="['/singer-profile', singer?.singerId]" class="view-profile-button">View Profile</a>
 
         </div>
         <!-- Add more slides as needed -->
@@ -55,21 +98,21 @@
                         <div class="rapper-slides fade">
                             <img src="assets/singer1.jpg" alt="Singer 1" class="slide-image">
                             <div class="text">Singer Name 1</div>
-                
+
                         </div>
                         <div class="rapper-slides fade">
                             <img src="assets/singer2.jpg" alt="Singer 2" class="slide-image">
                             <div class="text">Singer Name 2</div>
-                
+
                         </div>
                         <div class="rapper-slides fade">
                             <img src="assets/singer3.jpg" alt="Singer 3" class="slide-image">
                             <div class="text">Singer Name 3</div>
-                
+
                         </div>
                         <!-- Repeat for more rappers -->
                     </div>
-                    <a href="#" class="view-genre">View Rappers</a>
+                    <a [routerLink]="['/singers', 'Rap']" class="view-genre">View Rappers</a>
 
                     <div class="rapper-dots-container"></div>
                 </div>
@@ -82,50 +125,23 @@
                         <div class="bollywood-slides fade">
                             <img src="assets/singer1.jpg" alt="Singer 1" class="slide-image">
                             <div class="text">Singer Name 1</div>
-                
+
                         </div>
                         <div class="bollywood-slides fade">
                             <img src="assets/singer2.jpg" alt="Singer 2" class="slide-image">
                             <div class="text">Singer Name 2</div>
-                
+
                         </div>
                         <div class="bollywood-slides fade">
                             <img src="assets/singer3.jpg" alt="Singer 3" class="slide-image">
                             <div class="text">Singer Name 3</div>
-                
+
                         </div>
                         <!-- Repeat for more Bollywood singers -->
                     </div>
-                    <a href="#" class="view-genre">View Bollywood Singers</a>
+                    <a [routerLink]="['/singers', 'Bollywood']" class="view-genre">View Bollywood Singers</a>
 
                     <div class="bollywood-dots-container"></div>
-                </div>
-            </div>
-            <div class="category">
-                <h3>Sufi</h3>
-                <p>Experience the soul-stirring melodies of Sufi music.</p>
-                <div class="singer-thumbnails">
-                    <div class="sufi-slideshow-container">
-                        <div class="sufi-slides fade">
-                            <img src="assets/singer1.jpg" alt="Singer 1" class="slide-image">
-                            <div class="text">Singer Name 1</div>
-                
-                        </div>
-                        <div class="sufi-slides fade">
-                            <img src="assets/singer2.jpg" alt="Singer 2" class="slide-image">
-                            <div class="text">Singer Name 2</div>
-                
-                        </div>
-                        <div class="sufi-slides fade">
-                            <img src="assets/singer3.jpg" alt="Singer 3" class="slide-image">
-                            <div class="text">Singer Name 3</div>
-                
-                        </div>
-                        <!-- Repeat for more Sufi singers -->
-                    </div>
-                    <a href="#" class="view-genre">View Sufi Singers</a>
-
-                    <div class="sufi-dots-container"></div>
                 </div>
             </div>
             <div class="category">
@@ -136,23 +152,50 @@
                         <div class="punjabi-slides fade">
                             <img src="assets/singer1.jpg" alt="Singer 1" class="slide-image">
                             <div class="text">Singer Name 1</div>
-                
+
                         </div>
                         <div class="punjabi-slides fade">
                             <img src="assets/singer2.jpg" alt="Singer 2" class="slide-image">
                             <div class="text">Singer Name 2</div>
-                
+
                         </div>
                         <div class="punjabi-slides fade">
                             <img src="assets/singer3.jpg" alt="Singer 3" class="slide-image">
                             <div class="text">Singer Name 3</div>
-                
+
                         </div>
-                        <a href="#" class="view-genre">View Punjabi Singers</a>
-                        <!-- Add more slides as needed -->
-                    <div class="punjabi-dots-container"></div>
+                        <!-- Repeat for more Punjabi singers -->
                     </div>
-                    <!-- Repeat for more Punjabi singers -->
+                    <a [routerLink]="['/singers', 'Punjabi']" class="view-genre">View Punjabi Singers</a>
+
+                    <div class="punjabi-dots-container"></div>
+                </div>
+            </div>
+            <div class="category">
+                <h3>Sufi</h3>
+                <p>Experience the soul-stirring melodies of Sufi music.</p>
+                <div class="singer-thumbnails">
+                    <div class="sufi-slideshow-container">
+                        <div class="sufi-slides fade">
+                            <img src="assets/singer1.jpg" alt="Singer 1" class="slide-image">
+                            <div class="text">Singer Name 1</div>
+
+                        </div>
+                        <div class="sufi-slides fade">
+                            <img src="assets/singer2.jpg" alt="Singer 2" class="slide-image">
+                            <div class="text">Singer Name 2</div>
+
+                        </div>
+                        <div class="sufi-slides fade">
+                            <img src="assets/singer3.jpg" alt="Singer 3" class="slide-image">
+                            <div class="text">Singer Name 3</div>
+
+                        </div>
+                        <a [routerLink]="['/singers', 'Sufi']" class="view-genre">View Sufi Singers</a>
+                        <!-- Add more slides as needed -->
+                        <div class="sufi-dots-container"></div>
+                    </div>
+                    <!-- Repeat for more Sufi singers -->
                 </div>
             </div>
         </div>
@@ -189,4 +232,3 @@
     </div>
     <!-- Add more testimonials -->
 </section>
-

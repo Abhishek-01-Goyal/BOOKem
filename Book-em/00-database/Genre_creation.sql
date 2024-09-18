@@ -1,4 +1,4 @@
-CREATE TABLE genre (
-    genre_id INT(10) AUTO_INCREMENT PRIMARY KEY,
-    genre_name VARCHAR(100) NOT NULL
+CREATE TABLE Genres (
+    genre_id INT AUTO_INCREMENT PRIMARY KEY,
+    genre_name VARCHAR(255) UNIQUE NOT NULL
 );

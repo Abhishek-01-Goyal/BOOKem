@@ -33,6 +33,18 @@ nav ul {
     gap: 15px;
 }
 
+nav ul a {
+    color: #00bcd4;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav ul a:hover {
+    background-color: #00bcd4;
+    color: #121212;
+    border-radius: 5px;
+}
+
 nav ul li a {
     color: #00bcd4;
     text-decoration: none;

@@ -1,0 +1,14 @@
+<!-- all-singers.component.html -->
+<div class="all-singers">
+    <h1>All Singers</h1>
+    <div class="singers-list">
+        <div *ngFor="let singer of singers" class="singer-card">
+          <img [src]="singer.profile_image" alt="{{ singer.name }}">
+          <h3>{{ singer.name }}</h3>
+          <p>{{ singer.bio }}</p>
+          <p>Rating: {{ singer.rating }}</p>
+          <a [routerLink]="['/singer-profile', singer.singerId]" class="view-profile-button">View Profile</a>
+        </div>
+      </div>
+  </div>
+  

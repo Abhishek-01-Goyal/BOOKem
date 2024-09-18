@@ -1,9 +1,9 @@
 package com.book_em.BOOKem.controller;
 
-
-import com.book_em.BOOKem.entity.Singers;
+import com.book_em.BOOKem.entity.Singer;
 import com.book_em.BOOKem.service.SingerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,33 +12,33 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/singers")
 public class SingerController {
-
     @Autowired
     private SingerService singerService;
 
-    @PostMapping("/add")
-    public ResponseEntity<Singers> addSinger(@RequestBody Singers singer) {
-        Singers newSinger = singerService.saveSinger(singer);
-        return ResponseEntity.ok(newSinger);
+    @GetMapping
+    public ResponseEntity<List<Singer>> getAllSingers() {
+        List<Singer> singers = singerService.getAllSingers();
+        return ResponseEntity.ok(singers);
     }
 
     @GetMapping("/genre/{genre}")
-    public ResponseEntity<List<Singers>> getSingersByGenre(@PathVariable String genre) {
-        List<Singers> singers = singerService.findSingersByGenre(genre);
-        return ResponseEntity.ok(singers);
+    public List<Singer> getSingersByGenre(@PathVariable String genre) {
+        return singerService.findSingersByGenre(genre);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Singers>> searchSingersByName(@RequestParam String name) {
-        List<Singers> singers = singerService.searchByName(name);
-        return ResponseEntity.ok(singers);
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getSingerById(@PathVariable Integer id) {
+        try {
+            Singer singer = singerService.getSingerById(id);
+            if (singer != null) {
+                return ResponseEntity.ok(singer);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Singer not found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+        }
     }
 
-    @GetMapping("/genres") // Ensure this endpoint is correctly mapped
-    public ResponseEntity<List<String>> getAllGenres() {
-        List<String> genres = singerService.getAllGenres();
-        return ResponseEntity.ok(genres);
-    }
 
-    // Additional endpoints for singer operations
 }
