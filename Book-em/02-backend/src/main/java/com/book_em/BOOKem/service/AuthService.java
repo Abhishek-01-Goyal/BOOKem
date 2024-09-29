@@ -4,50 +4,83 @@ import com.book_em.BOOKem.dao.UsersRepository;
 import com.book_em.BOOKem.dto.LoginRequest;
 import com.book_em.BOOKem.dto.SignUpRequest;
 import com.book_em.BOOKem.dto.SignUpResponse;
+import com.book_em.BOOKem.entity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class AuthService {
 
     @Autowired
-    private UsersRepository userRepository; // Assuming you have a UserRepository for database operations
+    private UsersRepository userRepository;
 
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    // Sign up method with OTP
     public SignUpResponse signUp(SignUpRequest request) {
-        // This method should be used to handle initial signup logic before OTP
-        // If needed, you can add validation or additional steps here
+        if (userExists(request.getEmail())) {
+            throw new RuntimeException("User already exists");
+        }
+
+        // Hash the password before saving the user
+        String hashedPassword = passwordEncoder.encode(request.getPassword());
+
+        // Create a new User entity and save it to the database
+        Users newUser = new Users();
+        newUser.setEmail(request.getEmail());
+        newUser.setPassword(hashedPassword);
+        newUser.setStatus(Users.UserStatus.INACTIVE); // Default status, pending activation via OTP
+        userRepository.save(newUser);
+
+        // Send OTP to user's email (the actual OTP sending logic is not shown here)
+        // Generate and return OTP response
         return new SignUpResponse("OTP sent to " + request.getEmail());
     }
 
+    // Complete sign-up after OTP validation
     public void completeSignup(String email) {
-        // Complete the signup process, e.g., save user to the database
-        // Example:
-        if (userExists(email)) {
-            throw new RuntimeException("User already exists");
+        Optional<Users> userOptional = userRepository.findByEmail(email);
+
+        if (userOptional.isPresent()) {
+            Users user = userOptional.get();
+            user.setStatus(Users.UserStatus.ACTIVE); // Activate user after OTP validation
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("User not found");
         }
-        // Save user logic here
     }
 
+    // Login logic
     public String login(LoginRequest request) {
-        // Implement your login logic here, e.g., validate credentials and generate token
-        if (!validateCredentials(request)) {
-            throw new RuntimeException("Invalid credentials");
+        // Retrieve user by email
+        Optional<Users> userOptional = userRepository.findByEmail(request.getEmail());
+
+        if (!userOptional.isPresent()) {
+            throw new RuntimeException("Invalid credentials"); // User not found
         }
-        return generateToken(request);
+
+        Users user = userOptional.get();
+
+        // Validate the password using BCryptPasswordEncoder
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Invalid credentials"); // Incorrect password
+        }
+
+        // Generate a token (JWT or any token mechanism)
+        return generateToken(user);
     }
 
+    // Helper methods
     private boolean userExists(String email) {
-        // Check if the user already exists
         return userRepository.existsByEmail(email);
     }
 
-    private boolean validateCredentials(LoginRequest request) {
-        // Validate user credentials
-        return true; // Replace with actual validation logic
-    }
-
-    private String generateToken(LoginRequest request) {
-        // Generate a token for the user
-        return "token"; // Replace with actual token generation logic
+    private String generateToken(Users user) {
+        // Logic for generating a token (e.g., JWT) after successful login
+        // Placeholder for actual token generation
+        return "token";
     }
 }

@@ -1,19 +1,22 @@
 import { Component, Renderer2, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/auth.service'; // Assuming the AuthService is located in 'services'
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-landing-page',
+  selector: 'app-auth',
   templateUrl: './landing-page.component.html',
   styleUrls: ['./landing-page.component.css']
 })
 export class LandingPageComponent {
-  isSignUp = true;  // Track whether it's sign-up or sign-in form
+  isSignUp: boolean = true; // Track whether it's sign-up or login form
   signupForm: FormGroup;
   otpForm: FormGroup;
   loginForm: FormGroup;
-  otpSent = false;
+  otpSent: boolean = false;
+  showOTPInput: boolean = false; // Show OTP input field only after sending OTP
+
+  // Data for OTP and login handling
   otpData = {
     email: '',
     otp: ''
@@ -30,13 +33,15 @@ export class LandingPageComponent {
     private renderer: Renderer2,
     private el: ElementRef
   ) {
+    // Initialize forms with validation
     this.signupForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      contactNo: ['', Validators.required],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required]
+      contactNo: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', Validators.required],
+      otp: [''] // OTP field (used after OTP is sent)
     });
 
     this.otpForm = this.fb.group({
@@ -49,9 +54,10 @@ export class LandingPageComponent {
     });
   }
 
-  // Function to handle form toggle (sign-up/sign-in)
+  // Function to toggle between sign-up and login forms
   toggleForm() {
     this.isSignUp = !this.isSignUp;
+    this.showOTPInput = false;
     this.otpSent = false; // Reset OTP state when toggling forms
 
     const container = this.el.nativeElement.querySelector('#container');
@@ -62,37 +68,46 @@ export class LandingPageComponent {
     }
   }
 
-  // Handles sign-up form submission
+  // Sign-up flow: handles OTP sending, verification, and sign-up
   signUp() {
-    if (this.signupForm.valid) {
-      this.authService.signUp(this.signupForm.value).subscribe(
-        (response: any) => {
-          if (response.otpRequired) {
-            this.otpSent = true;
-            this.otpData.email = this.signupForm.get('email')?.value;
-          } else {
-            localStorage.setItem('token', response.token);
-            this.router.navigate(['/home']);
-          }
+    if (this.signupForm.invalid) {
+      // Handle validation errors
+      return;
+    }
+
+    if (!this.showOTPInput) {
+      // Step 1: Send OTP for email verification
+      const email = this.signupForm.get('email')?.value;
+      this.authService.sendOtp(email).subscribe(
+        response => {
+          this.showOTPInput = true; // Show OTP input field
+          this.otpData.email = email; // Store email for OTP verification
         },
-        (error) => {
-          console.error('Signup failed', error);
+        error => {
+          console.error('Error sending OTP:', error);
+        }
+      );
+    } else {
+      // Step 2: Verify OTP and complete sign-up
+      this.otpData.otp = this.signupForm.get('otp')?.value;
+      this.authService.verifyOtp(this.otpData).subscribe(
+        response => {
+          // OTP verified, now complete user registration
+          this.authService.signUp(this.signupForm.value).subscribe(
+            res => {
+              localStorage.setItem('token', res.token);
+              this.router.navigate(['/home']);
+            },
+            err => {
+              console.error('Sign-up failed:', err);
+            }
+          );
+        },
+        error => {
+          console.error('Invalid OTP:', error);
         }
       );
     }
-  }
-
-  // OTP verification
-  verifyOtp() {
-    this.authService.verifyOtp(this.otpData).subscribe(
-      (response: any) => {
-        localStorage.setItem('token', response.token);
-        this.router.navigate(['/home']);
-      },
-      (error) => {
-        console.error('OTP verification failed', error);
-      }
-    );
   }
 
   // Handles login form submission
@@ -110,24 +125,18 @@ export class LandingPageComponent {
     }
   }
 
-  // Function to send OTP for verification
-  sendOtp() {
-    if (this.otpData.email) {
-      this.authService.sendOtp(this.otpData.email).subscribe(
-        (response: any) => {
-          this.otpSent = true;
-        },
-        (error) => {
-          console.error('OTP sending failed', error);
-        }
-      );
-    }
-  }
-
-  // Function for forgot password (yet to implement logic)
-  forgotPassword() {
-    console.log('Forgot Password');
-  }
+  // Function to reset password (logic to be implemented later)
+  //forgotPassword() {
+    //const email = this.loginForm.get('email')?.value;
+    //this.authService.resetPassword(email).subscribe(
+      //response => {
+        //console.log('Reset password email sent');
+      //},
+      //error => {
+        //console.error('Error resetting password:', error);
+      //}
+    //);
+  //}
 
   // Social sign-up and login methods
   signUpWith(platform: string) {

@@ -14,6 +14,7 @@ import { BookingComponent } from './components/booking/booking.component';
 import { ConfirmBookingDetailsComponent } from './components/confirm-booking-details/confirm-booking-details.component';
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
 import { RouterModule } from '@angular/router';
+import { ProcessPaymentPageComponent } from './components/process-payment-page/process-payment-page.component';
 
 @NgModule({
   declarations: [
@@ -26,8 +27,8 @@ import { RouterModule } from '@angular/router';
     SingerProfileComponent,
     BookingComponent,
     ConfirmBookingDetailsComponent,
-    PaymentPageComponent
-  
+    PaymentPageComponent,
+    ProcessPaymentPageComponent
         
   ],
   imports: [

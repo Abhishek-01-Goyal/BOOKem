@@ -1,7 +1,10 @@
 <div class="logo">
   <a href="#">BOOK 'em</a>
 </div>
+
 <div class="container" id="container" [ngClass]="{'right-panel-active': !isSignUp}">
+  
+  <!-- Sign Up Form -->
   <div class="form-container sign-up-container">
     <form [formGroup]="signupForm" (ngSubmit)="signUp()">
       <h1>Create Account</h1>
@@ -11,20 +14,25 @@
       <input formControlName="contactNo" type="text" placeholder="Contact Number" />
       <input formControlName="password" type="password" placeholder="Password" />
       <input formControlName="confirmPassword" type="password" placeholder="Confirm Password" />
-      <button type="submit">Sign Up</button>
+      
+      <!-- OTP Input -->
+      <input *ngIf="showOTPInput" formControlName="otp" type="text" placeholder="Enter OTP" />
+      <button type="submit">{{ showOTPInput ? 'Verify OTP' : 'Sign Up' }}</button>
     </form>
   </div>
 
+  <!-- Sign In Form -->
   <div class="form-container sign-in-container">
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <h1>Sign In</h1>
       <input formControlName="email" type="email" placeholder="Email" />
       <input formControlName="password" type="password" placeholder="Password" />
-      <a href="#" (click)="forgotPassword()">Forgot your password?</a>
-      <button type="submit">Sign In</button>
+      <!--<a href="#" (click)="forgotPassword()">Forgot your password?</a>
+    --><button type="submit">Sign In</button>
     </form>
   </div>
 
+  <!-- Overlay with toggle buttons -->
   <div class="overlay-container">
     <div class="overlay">
       <div class="overlay-panel overlay-left">

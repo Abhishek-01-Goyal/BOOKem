@@ -1,3 +1,32 @@
+<!-- all-singers.component.html -->
+<!-- Header Section -->
+<header>
+  <div class="logo">
+      <a href="#">BOOK 'em</a>
+  </div>
+  <nav>
+      <ul>
+          <li><a href="#">Home</a></li>
+          <li class="dropdown">Singers
+              <div class="dropdown-content">
+                  <a [routerLink]="['/singers', 'Rap']">Rap</a>
+                  <a [routerLink]="['/singers', 'Bollywood']">Bollywood</a>
+                  <a [routerLink]="['/singers', 'Punjabi']">Punjabi</a>
+                  <a [routerLink]="['/singers', 'Sufi']">Sufi</a>
+              </div>
+          </li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact</a></li>
+      </ul>
+  </nav>
+
+  <!-- Search Bar -->
+  <div class="search-bar">
+      <input type="text" placeholder="Search for singers...">
+  </div>
+</header>
+ <!-- Navigation with conditional rendering -->
+
 <div class="singer-profile">
     <img [src]="singer?.profile_image" alt="{{ singer?.name }}" />
     <h1>{{ singer?.name }}</h1>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ConfirmBookingDetailsService } from '../../services/confirm-booking-details.service';
-import { loadStripe, Stripe, StripeElements, StripeCardElement } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-payment-page',
@@ -14,13 +14,10 @@ export class PaymentPageComponent implements OnInit {
   breakdown: { basePrice: number, additionalCharges: number, discounts: number } | null = null;
   bookingBreakdown: { pricePerHour: number, discount: number } | null = null;
 
-  private stripePromise: Promise<Stripe | null>;
-  cardElement: StripeCardElement | undefined;
-
-  constructor(private confirmBookingDetailsService: ConfirmBookingDetailsService) {
-    // Load the Stripe library using the publishable key
-    this.stripePromise = loadStripe('your-publishable-key-here'); // Replace with your actual publishable key
-  }
+  constructor(
+    private confirmBookingDetailsService: ConfirmBookingDetailsService,
+    private router: Router // Inject Router for navigation
+  ) {}
 
   ngOnInit(): void {
     // Retrieve the booking details
@@ -47,61 +44,12 @@ export class PaymentPageComponent implements OnInit {
         discount: 5 // Example discount applied
       };
     }
-
-    // Setup Stripe card element
-    this.initializeStripe();
   }
 
-  // Initialize Stripe card element
-  async initializeStripe() {
-    const stripe = await this.stripePromise;
-
-    if (stripe) {
-      const elements: StripeElements = stripe.elements();
-      this.cardElement = elements.create('card');
-      this.cardElement.mount('#card-element');
-    } else {
-      console.error('Stripe failed to load');
-    }
-  }
-
-  // Handle payment with Stripe
-  async pay() {
-    const stripe = await this.stripePromise;
-
-    if (!stripe || !this.cardElement) {
-      console.error('Stripe or card element is not available');
-      return;
-    }
-
-    // Create a PaymentIntent on your server (example API request)
-    const response = await fetch('/create-payment-intent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: this.totalPayableAmount * 100 }) // Convert to cents
+  // Redirect to the process payment page
+  pay() {
+    this.router.navigate(['/process-payment-page'], {
+      queryParams: { amount: this.totalPayableAmount }
     });
-
-    if (!response.ok) {
-      console.error('Failed to create PaymentIntent');
-      return;
-    }
-
-    const { clientSecret } = await response.json();
-
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: {
-        card: this.cardElement,
-        billing_details: {
-          name: 'Customer Name' // Replace with actual customer name if available
-        }
-      }
-    });
-
-    if (error) {
-      console.error('Payment error:', error);
-    } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-      console.log('Payment successful');
-      // Handle successful payment (e.g., show success message or redirect)
-    }
   }
 }

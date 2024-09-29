@@ -9,6 +9,7 @@ import { SingerProfileComponent } from './components/singer-profile/singer-profi
 import { BookingComponent } from './components/booking/booking.component';
 import { PaymentPageComponent } from './components/payment-page/payment-page.component';
 import { ConfirmBookingDetailsComponent } from './components/confirm-booking-details/confirm-booking-details.component';
+import { ProcessPaymentPageComponent } from './components/process-payment-page/process-payment-page.component';
 
 const routes: Routes = [
   //{ path: '', redirectTo: 'landing-page', pathMatch: 'full' }, // Redirect to landing page
@@ -21,7 +22,9 @@ const routes: Routes = [
   { path: 'singer-profile/:id', component: SingerProfileComponent },
   { path: 'booking', component: BookingComponent },
   { path: 'confirm-booking-details', component: ConfirmBookingDetailsComponent },
-  { path: 'payment-page', component: PaymentPageComponent}
+  { path: 'payment-page', component: PaymentPageComponent},
+  { path: 'process-payment-page', component: ProcessPaymentPageComponent },
+
   //{ path: '**', redirectTo: 'landing-page' } // Redirect unknown paths to landing page
 ];
 

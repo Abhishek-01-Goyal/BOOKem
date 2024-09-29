@@ -1,0 +1,30 @@
+.process-payment-container {
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .payment-option {
+    margin-bottom: 20px;
+  }
+
+  h3{
+    color:#00bcd4;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #00bcd4;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+  
+  button:hover {
+    background-color: #00acc1;
+  }
+  .nb{
+    position: relative;
+    left: 20px;
+  }

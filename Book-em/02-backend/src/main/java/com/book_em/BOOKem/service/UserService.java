@@ -5,6 +5,7 @@ import com.book_em.BOOKem.entity.Users;
 import com.book_em.BOOKem.entity.Users.UserStatus; // Correct import for nested enum
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Map;
 import java.util.Optional;
@@ -17,6 +18,7 @@ public class UserService {
     @Autowired
     private UsersRepository userRepository;
 
+    private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private Map<String, String> otpStore = new ConcurrentHashMap<>();
 
     // User Management Methods
@@ -28,7 +30,11 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
+    // Save user with hashed password during registration
     public Users saveUser(Users user) {
+        // Hash the password before saving
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
         return userRepository.save(user);
     }
 

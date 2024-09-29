@@ -27,16 +27,22 @@
 </header>
    <!-- Navigation with conditional rendering -->
 
-<div class="all-singers">
-    <h1>All Singers</h1>
-    <div class="singers-list">
-        <div *ngFor="let singer of singers" class="singer-card">
-          <img [src]="singer.profile_image" alt="{{ singer.name }}">
-          <h3>{{ singer.name }}</h3>
-          <p>{{ singer.bio }}</p>
-          <p>Rating: {{ singer.rating }}</p>
-          <a [routerLink]="['/singer-profile', singer.singerId]" class="view-profile-button">View Profile</a>
-        </div>
-      </div>
+<div class="process-payment-container">
+    <h2>Select Payment Method</h2>
+  
+    <!-- UPI Integration -->
+    <div class="payment-option">
+      <h3>UPI</h3>
+      <p>Pay using UPI (Google Pay, PhonePe, Paytm, etc.)</p>
+      <button (click)="payWithRazorpay('upi')">Pay with UPI</button>
+    </div>
+  
+    <!-- Razorpay Net Banking, Cards, etc. -->
+    <div class="payment-option">
+      <h3>Credit/Debit Card or Net Banking</h3>
+      <p>Pay using your card or Net Banking.</p>
+      <button (click)="payWithRazorpay('card')">Pay with Card</button>
+      <button (click)="payWithRazorpay('netbanking')" class="nb">Pay with Net Banking</button>
+    </div>
   </div>
   
